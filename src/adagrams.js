@@ -29,14 +29,14 @@ const POOL = {
 
 const Adagrams = {
 
-getTenRandomLetters(tileBag, neededAmount) {
-  let tenLetters = [];
-  for (let i = 0; i < neededAmount; i += 1) {
-    tenLetters.push(tileBag[Math.floor(Math.random()*tileBag.length)]);
-  }
-  return tenLetters;
+  getTenRandomLetters(neededAmount, tileBag) {
+    let tenLetters = [];
+    for (let i = 0; i < neededAmount; i += 1) {
+      tenLetters.push(tileBag[Math.floor(Math.random()*tileBag.length)]);
+    }
+    return tenLetters;
 
-},
+  },
 
   generateTileBag() {
     let tileBag = [];
@@ -54,7 +54,7 @@ getTenRandomLetters(tileBag, neededAmount) {
   drawLetters() {
     let neededAmount = 10;
     let tileBag = Adagrams.generateTileBag();
-    let tenLetters = Adagrams.getTenRandomLetters( tileBag, neededAmount );
+    let tenLetters = Adagrams.getTenRandomLetters( neededAmount, tileBag );
     return tenLetters
   },
 };
