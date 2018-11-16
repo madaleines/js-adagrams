@@ -27,16 +27,23 @@ const POOL = {
   Z: 1
 };
 
-
 const Adagrams = {
+
+getTenRandomLetters(tileBag, neededAmount) {
+  let tenLetters = [];
+  for (let i = 0; i < neededAmount; i += 1) {
+    tenLetters.push(tileBag[Math.floor(Math.random()*tileBag.length)]);
+  }
+  return tenLetters;
+
+},
 
   generateTileBag() {
     let tileBag = [];
-
     for (let letter in POOL) {
-      let numCount = POOL[letter];
+      let letterCount = POOL[letter];
 
-      for ( let i = 0; i < numCount; i += 1 ) {
+      for ( let i = 0; i < letterCount; i += 1 ) {
         tileBag.push(letter);
       }
     }
@@ -45,13 +52,10 @@ const Adagrams = {
 
 
   drawLetters() {
-
+    let neededAmount = 10;
     let tileBag = Adagrams.generateTileBag();
-    console.log(tileBag)
-    // array of letters
-
-    // for loop
-    // Implement this method for wave 1
+    let tenLetters = Adagrams.getTenRandomLetters( tileBag, neededAmount );
+    return tenLetters
   },
 };
 
