@@ -29,29 +29,25 @@ const POOL = {
 
 const Adagrams = {
 
-  usesAvailableLetters(input, lettersInHand) {
+  checkArraysEqual(arr1, arr2) {
+    if(arr1.length !== arr2.length)
+    return false;
+    for(let i = arr1.length; i--;) {
+      if(arr1[i] !== arr2[i])
+      return false;
+    }
 
+    return true;
+
+  },
+
+  usesAvailableLetters(input, lettersInHand) {
     let splitInput = input.split("")
 
     let comparedInput = lettersInHand.filter(function(val) {
       return splitInput.indexOf(val) != -1;
     });
-
-
-    let checkArraysEqual = function arraysEqual(arr1, arr2) {
-      if(arr1.length !== arr2.length)
-      return false;
-      for(let i = arr1.length; i--;) {
-        if(arr1[i] !== arr2[i])
-        return false;
-      }
-
-      return true;
-    }
-
-
-    return checkArraysEqual(comparedInput, splitInput)
-
+    return Adagrams.checkArraysEqual(comparedInput, splitInput)
   },
 
 
@@ -61,7 +57,6 @@ const Adagrams = {
       tenLetters.push(tileBag[Math.floor(Math.random()*tileBag.length)]);
     }
     return tenLetters;
-
   },
 
   generateTileBag() {
