@@ -29,16 +29,15 @@ const POOL = {
 
 const Adagrams = {
 
-  checkArraysEqual(arr1, arr2) {
-    if(arr1.length !== arr2.length)
-    return false;
-    for(let i = arr1.length; i--;) {
-      if(arr1[i] !== arr2[i])
-      return false;
+  compareArrays(arr1, arr2) {
+    if (arr1 === arr2) return true;
+    if (arr1.length != arr2.length) return false;
+
+    for (let i = 0; i < arr1.length; i += 1) {
+      if (arr1[i] !== arr2[i]) return false;
     }
 
     return true;
-
   },
 
   usesAvailableLetters(input, lettersInHand) {
@@ -47,7 +46,7 @@ const Adagrams = {
     let comparedInput = lettersInHand.filter(function(val) {
       return splitInput.indexOf(val) != -1;
     });
-    return Adagrams.checkArraysEqual(comparedInput, splitInput)
+    return Adagrams.compareArrays(comparedInput, splitInput)
   },
 
 
@@ -78,6 +77,75 @@ const Adagrams = {
     let tenLetters = Adagrams.getTenRandomLetters( neededAmount, tileBag );
     return tenLetters
   },
+
+  scoreWord(word) {
+    let score = 0;
+    word = word.toUpperCase();
+    word.split("").forEach((letter) => {
+      switch(letter) {
+        case 'A':
+        case 'E':
+        case 'I':
+        case 'O':
+        case 'U':
+        case 'L':
+        case 'N':
+        case 'R':
+        case 'S':
+        case 'T':
+        score += 1;
+        break;
+        case "D":
+        case "G":
+        score += 2;
+        break;
+        case "B":
+        case "C":
+        case "M":
+        case "P":
+        score += 3;
+        break;
+        case "F":
+        case "H":
+        case "V":
+        case "W":
+        case "Y":
+        score += 4;
+        break;
+        case "K":
+        score += 5;
+        break;
+        case "J":
+        case "X":
+        score += 8;
+        break;
+        case "Q":
+        case "Z":
+        score += 10;
+        break;
+      }
+    });
+    if (word.length > 6) {
+      score += 8;
+    }
+    return score;
+  },
+  highestScoreFrom(words) {
+    let bestWord = {"word": null, "score": 0};
+    for (let word of words) {
+      if (this.scoreWord(word) > bestWord["score"]){
+        bestWord["score"] = this.scoreWord(word)
+        bestWord["word"] = word
+      } else if (this.scoreWord(word) == bestWord["score"]) {
+        if (word.length == 10 && bestWord["word"].length != 10) {
+          bestWord["word"] = word
+        } else if (word.length < bestWord["word"].length && bestWord["word"].length != 10) {
+          bestWord["word"] = word
+        }
+      }
+    }
+    return bestWord;
+  }
 };
 
 // Do not remove this line or your tests will break!
